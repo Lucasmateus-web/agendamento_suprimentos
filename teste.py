@@ -1246,7 +1246,7 @@ async def handle_email_input(update: Update, context: ContextTypes.DEFAULT_TYPE)
     elif tipo == 'men':
         msg.add_alternative(montar_corpo_email(corpo), subtype='html')
     else:
-        msg.add_alternative(f"<html><body><p>{corpo.replace(r'\n', '<br>')}</p></body></html>", subtype='html')
+       msg.add_alternative("<html><body><p>{}</p></body></html>".format(corpo.replace("\n", "<br>")), subtype='html')
 
 
     # ─── ENVIO DO E-MAIL ──────────────────────────────────────────────
