@@ -1,26 +1,34 @@
-name: Rodar script Python automaticamente
+name: Run Python script
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '0 8-18 * * 1-5'  # De hora em hora, das 8h às 18h (segunda a sexta)
-  workflow_dispatch:         # Permite executar manualmente também
+    - cron: '0 8-18 * * 1-5'  # Executa de hora em hora, seg a sex
 
 jobs:
-  executar:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar o repositório
-        uses: actions/checkout@v3
+      - name: Check out the code
+        uses: actions/checkout@v2
 
-      - name: Configurar o Python
-        uses: actions/setup-python@v4
+      - name: List files in directory
+        run: |
+          echo "Listando arquivos no diretório:"
+          ls -la  # Exibe o conteúdo do diretório onde o script será executado
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
           python-version: '3.10'
 
-      - name: Instalar dependências
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Executar script
-        run: python teste.py
+      - name: Run the script
+        run: |
+          python teste.py
